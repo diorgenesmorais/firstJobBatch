@@ -6,6 +6,7 @@ import java.util.List;
 import org.springframework.batch.core.Job;
 import org.springframework.batch.core.Step;
 import org.springframework.batch.core.job.builder.JobBuilder;
+import org.springframework.batch.core.launch.support.RunIdIncrementer;
 import org.springframework.batch.core.repository.JobRepository;
 import org.springframework.batch.core.step.builder.StepBuilder;
 import org.springframework.batch.item.ItemProcessor;
@@ -22,7 +23,7 @@ public class BatchChunkConfig {
 
 	@Bean
 	Job job(JobRepository jobRepository, Step step) {
-		return new JobBuilder("job", jobRepository).start(step).build();
+		return new JobBuilder("job", jobRepository).start(step).incrementer(new RunIdIncrementer()).build();
 	}
 
 	@Bean
